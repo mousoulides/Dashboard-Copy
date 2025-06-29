@@ -274,19 +274,22 @@ const LabourMarketDashboard = () => {
     { name: 'Agriculture', value: 8.0, color: '#f59e0b' }
   ];
 
-  const MetricCard = ({ title, value, bgColor = 'bg-gray-100' }) => (
-    <div className={`${bgColor} rounded-md p-4 text-center border border-gray-200`}>
-      <div className="text-xs text-gray-600 mb-1 font-normal">{title}</div>
-      <div className="text-xl font-bold text-teal-600">{value}</div>
+  const MetricCard = ({ title, value, bgColor = 'bg-gradient-to-br from-white to-gray-50' }) => (
+    <div className={`${bgColor} rounded-xl p-6 text-center border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.02]`}>
+      <div className="text-sm text-gray-600 mb-2 font-medium uppercase tracking-wide">{title}</div>
+      <div className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">{value}</div>
     </div>
   );
 
   const renderOverview = () => (
     <div className="space-y-6">
       {/* File Upload Section */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold mb-4">
-          📁 Monthly Data Upload
+      <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <h3 className="text-xl font-bold mb-6 flex items-center text-gray-800">
+          <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mr-3">
+            📁
+          </div>
+          Monthly Data Upload
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -299,7 +302,7 @@ const LabourMarketDashboard = () => {
               type="file"
               accept=".csv,.xlsx,.xls"
               onChange={handleFileUpload}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100 border border-gray-300 rounded-lg p-2"
+              className="block w-full text-sm text-gray-600 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-teal-50 file:to-cyan-50 file:text-teal-700 hover:file:from-teal-100 hover:file:to-cyan-100 border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
             />
             
             {/* Upload Status */}
@@ -333,14 +336,14 @@ const LabourMarketDashboard = () => {
             <div className="space-y-2">
               <button
                 onClick={() => downloadTemplate('monthly')}
-                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center"
+                className="w-full px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl hover:from-gray-200 hover:to-gray-300 transition-all duration-200 flex items-center justify-center font-medium shadow-sm hover:shadow-md"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Monthly Trends Template
               </button>
               <button
                 onClick={() => downloadTemplate('metrics')}
-                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center"
+                className="w-full px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl hover:from-gray-200 hover:to-gray-300 transition-all duration-200 flex items-center justify-center font-medium shadow-sm hover:shadow-md"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Current Metrics Template
@@ -366,11 +369,16 @@ const LabourMarketDashboard = () => {
         <h2 className="text-2xl font-bold text-gray-800 mb-2">{t.sections.keyIndicators}</h2>
         <p className="text-gray-500 mb-6">{t.sections.comprehensiveOverview}</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Cyprus Metrics */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-xl font-medium text-teal-600 mb-6 text-center">{t.metrics.cyprusKeyMetrics}</h3>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl mb-3">
+                <span className="text-white font-bold text-lg">CY</span>
+              </div>
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">{t.metrics.cyprusKeyMetrics}</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
               <MetricCard title={t.metrics.unemploymentRate} value={`${currentMetrics.cyprus.unemploymentRate}%`} />
               <MetricCard title={t.metrics.employmentRate} value={`${currentMetrics.cyprus.employmentRate}%`} />
               <MetricCard title={t.metrics.averageSalary} value={`€${currentMetrics.cyprus.averageSalary.toLocaleString()}`} />
@@ -379,9 +387,14 @@ const LabourMarketDashboard = () => {
           </div>
 
           {/* EU Average Metrics */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-xl font-medium text-teal-600 mb-6 text-center">{t.metrics.euAverageMetrics}</h3>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl mb-3">
+                <span className="text-white font-bold text-lg">EU</span>
+              </div>
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{t.metrics.euAverageMetrics}</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
               <MetricCard title={t.metrics.unemploymentRate} value={`${currentMetrics.eu.unemploymentRate}%`} />
               <MetricCard title={t.metrics.employmentRate} value={`${currentMetrics.eu.employmentRate}%`} />
               <MetricCard title={t.metrics.averageSalary} value={`€${currentMetrics.eu.averageSalary.toLocaleString()}`} />
@@ -392,9 +405,11 @@ const LabourMarketDashboard = () => {
       </div>
 
       {/* Performance Comparison Chart */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">{t.sections.performanceComparison}</h3>
-        <h4 className="text-base text-gray-500 mb-6 text-center">{t.sections.cyprusVsEU}</h4>
+      <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">{t.sections.performanceComparison}</h3>
+          <h4 className="text-lg text-gray-600">{t.sections.cyprusVsEU}</h4>
+        </div>
         
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={getComparisonData()} margin={{ top: 20, right: 30, left: 40, bottom: 80 }}>
@@ -424,14 +439,14 @@ const LabourMarketDashboard = () => {
           </BarChart>
         </ResponsiveContainer>
         
-        <div className="flex justify-center mt-4 space-x-6">
-          <div className="flex items-center">
-            <div className="w-4 h-4 bg-sky-500 rounded mr-2"></div>
-            <span className="text-sm text-gray-600">{t.chartLabels.cyprus}</span>
+        <div className="flex justify-center mt-6 space-x-8">
+          <div className="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+            <div className="w-4 h-4 bg-sky-500 rounded-full mr-3 shadow-sm"></div>
+            <span className="text-sm font-medium text-gray-700">{t.chartLabels.cyprus}</span>
           </div>
-          <div className="flex items-center">
-            <div className="w-4 h-4 bg-orange-400 rounded mr-2"></div>
-            <span className="text-sm text-gray-600">{t.chartLabels.euAverage}</span>
+          <div className="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+            <div className="w-4 h-4 bg-orange-400 rounded-full mr-3 shadow-sm"></div>
+            <span className="text-sm font-medium text-gray-700">{t.chartLabels.euAverage}</span>
           </div>
         </div>
       </div>
@@ -603,27 +618,27 @@ const LabourMarketDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-teal-50/20">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="px-6 py-4">
+      <header className="bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 shadow-lg">
+        <div className="px-6 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-teal-600">{t.title}</h1>
+              <h1 className="text-3xl font-bold text-white drop-shadow-sm">{t.title}</h1>
               <button 
                 onClick={() => setLanguage(language === 'en' ? 'el' : 'en')}
-                className="ml-4 px-3 py-1 bg-teal-600 text-white rounded text-sm hover:bg-teal-700"
+                className="ml-6 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg text-sm hover:bg-white/30 transition-all duration-200 font-medium border border-white/20"
               >
                 {language === 'en' ? 'EL' : 'EN'}
               </button>
             </div>
-            <div className="flex items-center space-x-4 text-sm text-gray-600">
-              <span>{t.lastUpdated} May 30, 2025</span>
-              <button className="px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors flex items-center">
+            <div className="flex items-center space-x-4 text-sm">
+              <span className="text-white/90 bg-white/10 px-3 py-2 rounded-lg backdrop-blur-sm">{t.lastUpdated} May 30, 2025</span>
+              <button className="px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/30 transition-all duration-200 flex items-center text-white font-medium">
                 <Download className="w-4 h-4 mr-2" />
                 {t.exportToExcel}
               </button>
-              <button className="px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors flex items-center">
+              <button className="px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/30 transition-all duration-200 flex items-center text-white font-medium">
                 <FileText className="w-4 h-4 mr-2" />
                 {t.printReport}
               </button>
@@ -632,16 +647,16 @@ const LabourMarketDashboard = () => {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="px-6">
-          <nav className="flex space-x-8">
+        <div className="px-6 pb-2">
+          <nav className="flex space-x-2">
             {tabs.map((tab, index) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-3 px-6 rounded-t-xl font-medium text-sm transition-all duration-200 ${
                   activeTab === tab
-                    ? 'border-teal-500 text-teal-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'bg-white text-teal-600 shadow-sm border-b-2 border-teal-500'
+                    : 'text-white/80 hover:text-white hover:bg-white/10 backdrop-blur-sm'
                 }`}
               >
                 {Object.values(t.tabs)[index]}
@@ -652,7 +667,7 @@ const LabourMarketDashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="p-6">
+      <main className="p-6 bg-gradient-to-br from-gray-50 via-blue-50/30 to-teal-50/30 min-h-screen">
         {renderContent()}
       </main>
     </div>

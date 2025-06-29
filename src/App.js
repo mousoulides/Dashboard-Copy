@@ -13,6 +13,7 @@ const translations = {
     printReport: "Print Report",
     tabs: {
       overview: "Overview",
+      dataUpload: "Data Upload",
       unemploymentTrends: "Unemployment Trends", 
       demographics: "Demographics",
       sectoralEmployment: "Sectoral Employment",
@@ -50,6 +51,7 @@ const translations = {
     printReport: "Εκτύπωση Αναφοράς", 
     tabs: {
       overview: "Επισκόπηση",
+      dataUpload: "Φόρτωση Δεδομένων",
       unemploymentTrends: "Τάσεις Ανεργίας",
       demographics: "Δημογραφικά", 
       sectoralEmployment: "Τομεακή Απασχόληση",
@@ -116,6 +118,7 @@ const LabourMarketDashboard = () => {
 
   const tabs = [
     'Overview',
+    'Data Upload',
     'Unemployment Trends', 
     'Demographics',
     'Sectoral Employment',
@@ -283,87 +286,6 @@ const LabourMarketDashboard = () => {
 
   const renderOverview = () => (
     <div className="space-y-6">
-      {/* File Upload Section */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
-        <h3 className="text-xl font-bold mb-6 flex items-center text-gray-800">
-          <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mr-3">
-            📁
-          </div>
-          Monthly Data Upload
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Upload Area */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Upload CSV or Excel File
-            </label>
-            <input
-              type="file"
-              accept=".csv,.xlsx,.xls"
-              onChange={handleFileUpload}
-              className="block w-full text-sm text-gray-600 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-teal-50 file:to-cyan-50 file:text-teal-700 hover:file:from-teal-100 hover:file:to-cyan-100 border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
-            />
-            
-            {/* Upload Status */}
-            {uploadStatus && (
-              <div className={`mt-3 p-3 rounded-lg flex items-center ${
-                uploadStatus.includes('success') ? 'bg-green-50 text-green-700' : 
-                uploadStatus === 'processing' ? 'bg-blue-50 text-blue-700' :
-                'bg-red-50 text-red-700'
-              }`}>
-                {uploadStatus.includes('success') ? (
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                ) : uploadStatus === 'processing' ? (
-                  <div className="w-4 h-4 mr-2 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                )}
-                {uploadStatus === 'success-monthly' && 'Monthly trend data updated successfully!'}
-                {uploadStatus === 'success-metrics' && 'Current metrics updated successfully!'}
-                {uploadStatus === 'success-general' && 'Data uploaded successfully!'}
-                {uploadStatus === 'processing' && 'Processing file...'}
-                {uploadStatus === 'error' && 'Upload failed. Please check your file format.'}
-              </div>
-            )}
-          </div>
-
-          {/* Template Downloads */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Download Templates
-            </label>
-            <div className="space-y-2">
-              <button
-                onClick={() => downloadTemplate('monthly')}
-                className="w-full px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl hover:from-gray-200 hover:to-gray-300 transition-all duration-200 flex items-center justify-center font-medium shadow-sm hover:shadow-md"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Monthly Trends Template
-              </button>
-              <button
-                onClick={() => downloadTemplate('metrics')}
-                className="w-full px-4 py-3 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 rounded-xl hover:from-gray-200 hover:to-gray-300 transition-all duration-200 flex items-center justify-center font-medium shadow-sm hover:shadow-md"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Current Metrics Template
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Data Guidelines */}
-        <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-          <h4 className="font-medium text-blue-900 mb-2">Data Upload Guidelines:</h4>
-          <ul className="text-sm text-blue-800 space-y-1">
-            <li>• <strong>Monthly Trends:</strong> Use columns: month, Cyprus, EU, date</li>
-            <li>• <strong>Current Metrics:</strong> Use columns: metric, cyprus_value, eu_value</li>
-            <li>• <strong>Supported formats:</strong> CSV, Excel (.xlsx, .xls)</li>
-            <li>• <strong>Date format:</strong> YYYY-MM for monthly data</li>
-          </ul>
-        </div>
-      </div>
-
       {/* Key Metrics Summary */}
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-2">{t.sections.keyIndicators}</h2>
@@ -455,31 +377,6 @@ const LabourMarketDashboard = () => {
 
   const renderUnemploymentTrends = () => (
     <div className="space-y-6">
-      {/* Monthly Data Upload for Trends */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold mb-4">
-          📈 Update Monthly Trend Data
-        </h3>
-        <div className="flex items-center space-x-4">
-          <input
-            type="file"
-            accept=".csv,.xlsx,.xls"
-            onChange={handleFileUpload}
-            className="flex-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100 border border-gray-300 rounded-lg p-2"
-          />
-          <button
-            onClick={() => downloadTemplate('monthly')}
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Template
-          </button>
-        </div>
-        <p className="text-sm text-gray-600 mt-2">
-          Upload monthly unemployment data with columns: month, Cyprus, EU, date
-        </p>
-      </div>
-
       {/* Trend Chart */}
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <h3 className="text-xl font-semibold text-gray-800 mb-6">Unemployment Rate Trends</h3>
@@ -512,6 +409,211 @@ const LabourMarketDashboard = () => {
             />
           </LineChart>
         </ResponsiveContainer>
+      </div>
+    </div>
+  );
+
+  const renderDataUpload = () => (
+    <div className="space-y-6">
+      {/* Main Data Upload Section */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <h3 className="text-2xl font-bold mb-6 flex items-center text-gray-800">
+          <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center mr-4">
+            📁
+          </div>
+          Data Upload Center
+        </h3>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Upload Area */}
+          <div className="space-y-6">
+            <div>
+              <label className="block text-lg font-semibold text-gray-800 mb-4">
+                Upload CSV or Excel Files
+              </label>
+              <input
+                type="file"
+                accept=".csv,.xlsx,.xls"
+                onChange={handleFileUpload}
+                className="block w-full text-sm text-gray-600 file:mr-4 file:py-4 file:px-8 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-teal-50 file:to-cyan-50 file:text-teal-700 hover:file:from-teal-100 hover:file:to-cyan-100 border-2 border-dashed border-gray-300 rounded-xl p-6 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 hover:border-teal-300"
+              />
+              
+              {/* Upload Status */}
+              {uploadStatus && (
+                <div className={`mt-4 p-4 rounded-xl flex items-center ${
+                  uploadStatus.includes('success') ? 'bg-green-50 text-green-700 border border-green-200' : 
+                  uploadStatus === 'processing' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
+                  'bg-red-50 text-red-700 border border-red-200'
+                }`}>
+                  {uploadStatus.includes('success') ? (
+                    <CheckCircle className="w-5 h-5 mr-3" />
+                  ) : uploadStatus === 'processing' ? (
+                    <div className="w-5 h-5 mr-3 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <AlertCircle className="w-5 h-5 mr-3" />
+                  )}
+                  <div>
+                    {uploadStatus === 'success-monthly' && (
+                      <>
+                        <div className="font-semibold">Monthly trend data updated successfully!</div>
+                        <div className="text-sm">Your unemployment trend charts have been updated with the new data.</div>
+                      </>
+                    )}
+                    {uploadStatus === 'success-metrics' && (
+                      <>
+                        <div className="font-semibold">Current metrics updated successfully!</div>
+                        <div className="text-sm">Dashboard key indicators have been refreshed with your data.</div>
+                      </>
+                    )}
+                    {uploadStatus === 'success-general' && (
+                      <>
+                        <div className="font-semibold">Data uploaded successfully!</div>
+                        <div className="text-sm">Your data has been processed and is ready for analysis.</div>
+                      </>
+                    )}
+                    {uploadStatus === 'processing' && 'Processing your file, please wait...'}
+                    {uploadStatus === 'error' && (
+                      <>
+                        <div className="font-semibold">Upload failed</div>
+                        <div className="text-sm">Please check your file format and try again.</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Supported Data Types */}
+            <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
+              <h4 className="font-semibold text-blue-900 mb-3 flex items-center">
+                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-2">
+                  <span className="text-white text-xs">ℹ</span>
+                </div>
+                Supported Data Types
+              </h4>
+              <div className="space-y-3 text-sm text-blue-800">
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div>
+                    <strong>Monthly Trends:</strong> Unemployment data over time
+                    <br />
+                    <span className="text-blue-600">Columns: month, Cyprus, EU, date</span>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div>
+                    <strong>Current Metrics:</strong> Latest key performance indicators
+                    <br />
+                    <span className="text-blue-600">Columns: metric, cyprus_value, eu_value</span>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div>
+                    <strong>Supported formats:</strong> CSV, Excel (.xlsx, .xls)
+                    <br />
+                    <span className="text-blue-600">Date format: YYYY-MM for monthly data</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Template Downloads */}
+          <div className="space-y-6">
+            <div>
+              <label className="block text-lg font-semibold text-gray-800 mb-4">
+                Download Data Templates
+              </label>
+              <div className="space-y-4">
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <h4 className="font-semibold text-gray-800 mb-3 flex items-center">
+                    📈 Monthly Trends Template
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Template for uploading monthly unemployment trend data with Cyprus and EU comparison.
+                  </p>
+                  <button
+                    onClick={() => downloadTemplate('monthly')}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-white rounded-xl hover:from-teal-600 hover:to-cyan-600 transition-all duration-200 flex items-center justify-center font-semibold shadow-md hover:shadow-lg"
+                  >
+                    <Download className="w-5 h-5 mr-2" />
+                    Download Monthly Template
+                  </button>
+                </div>
+
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                  <h4 className="font-semibold text-gray-800 mb-3 flex items-center">
+                    📊 Current Metrics Template
+                  </h4>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Template for updating current key performance indicators and comparative metrics.
+                  </p>
+                  <button
+                    onClick={() => downloadTemplate('metrics')}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-200 flex items-center justify-center font-semibold shadow-md hover:shadow-lg"
+                  >
+                    <Download className="w-5 h-5 mr-2" />
+                    Download Metrics Template
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Tips */}
+            <div className="bg-yellow-50 rounded-xl p-6 border border-yellow-200">
+              <h4 className="font-semibold text-yellow-900 mb-3 flex items-center">
+                💡 Quick Tips
+              </h4>
+              <ul className="text-sm text-yellow-800 space-y-2">
+                <li>• Ensure your data follows the exact column names in templates</li>
+                <li>• Use consistent date formats (YYYY-MM) for monthly data</li>
+                <li>• Check for missing values before uploading</li>
+                <li>• Large files may take a few moments to process</li>
+                <li>• Upload will automatically detect the data type</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Upload History / Recent Activity */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+          <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
+            📋
+          </div>
+          Data Status
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <h4 className="font-medium text-gray-700">Current Data Sources:</h4>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                <span className="text-sm font-medium text-green-800">Monthly Trends</span>
+                <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">Active</span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                <span className="text-sm font-medium text-green-800">Key Metrics</span>
+                <span className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">Active</span>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <h4 className="font-medium text-gray-700">Last Updated:</h4>
+            <div className="space-y-2">
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="text-sm font-medium text-blue-800">Dashboard Metrics</div>
+                <div className="text-xs text-blue-600">May 30, 2025</div>
+              </div>
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="text-sm font-medium text-blue-800">Trend Data</div>
+                <div className="text-xs text-blue-600">June 2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -587,6 +689,8 @@ const LabourMarketDashboard = () => {
     switch(activeTab) {
       case 'Overview':
         return renderOverview();
+      case 'Data Upload':
+        return renderDataUpload();
       case 'Unemployment Trends':
         return renderUnemploymentTrends();
       case 'Sectoral Employment':

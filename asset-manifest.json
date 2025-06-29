@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/cyprus-labour-dashboard/static/css/main.31d6cfe0.css",
+    "main.js": "/cyprus-labour-dashboard/static/js/main.7d27ce12.js",
+    "static/js/453.86019421.chunk.js": "/cyprus-labour-dashboard/static/js/453.86019421.chunk.js",
+    "index.html": "/cyprus-labour-dashboard/index.html",
+    "main.7d27ce12.js.map": "/cyprus-labour-dashboard/static/js/main.7d27ce12.js.map",
+    "453.86019421.chunk.js.map": "/cyprus-labour-dashboard/static/js/453.86019421.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.7d27ce12.js"
+  ]
+}
